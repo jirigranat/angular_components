@@ -636,9 +636,12 @@ class MaterialPopupComponent extends Object
     if (_repositionOffsetX != 0 || _repositionOffsetY != 0) {
       // Prevent later overlay state changes from resetting the reposition
       // transform.
-      _overlayRef.state
-        ..left += _repositionOffsetX
-        ..top += _repositionOffsetY;
+      _overlayRef.state.top += _repositionOffsetY;
+      if(state.source.isRtl == true){
+        _overlayRef.state.right -= _repositionOffsetX;
+      }else{
+        _overlayRef.state.left += _repositionOffsetX;
+      }
       _repositionOffsetX = _repositionOffsetY = 0;
     }
   }
@@ -787,7 +790,7 @@ class MaterialPopupComponent extends Object
     // Find the size of the content, and move the overlay as an offset based
     // on the calculated position.
     final offsetX = isRtl
-        ? state.offsetX - containerRect.right
+        ? containerRect.right - state.offsetX
         : state.offsetX - containerRect.left;
     final offsetY = state.offsetY - containerRect.top;
     _overlayRef.state
@@ -797,8 +800,7 @@ class MaterialPopupComponent extends Object
 
     if(isRtl){
       _overlayRef.state
-        ..right = -position.originX.calcRight(sourceClientRect, contentClientRect) -
-            offsetX;
+        ..right = offsetX - position.originX.calcRight(sourceClientRect, contentClientRect);
     }else{
       _overlayRef.state
         ..left = position.originX.calcLeft(sourceClientRect, contentClientRect) +
