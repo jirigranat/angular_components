@@ -787,15 +787,24 @@ class MaterialPopupComponent extends Object
     // Find the size of the content, and move the overlay as an offset based
     // on the calculated position.
     final offsetX = isRtl
-        ? containerRect.left - state.offsetX
+        ? state.offsetX - containerRect.right
         : state.offsetX - containerRect.left;
     final offsetY = state.offsetY - containerRect.top;
     _overlayRef.state
-      ..left = position.originX.calcLeft(sourceClientRect, contentClientRect) +
-          offsetX
       ..top = position.originY.calcTop(sourceClientRect, contentClientRect) +
           offsetY
       ..visibility = visibility.Visibility.Visible;
+
+    if(isRtl){
+      _overlayRef.state
+        ..right = -position.originX.calcRight(sourceClientRect, contentClientRect) -
+            offsetX;
+    }else{
+      _overlayRef.state
+        ..left = position.originX.calcLeft(sourceClientRect, contentClientRect) +
+            offsetX;
+    }
+
     _overlayRef.overlayElement.style
       ..visibility = 'visible'
       ..display = '';

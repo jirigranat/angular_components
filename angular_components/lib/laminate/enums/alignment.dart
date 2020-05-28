@@ -92,6 +92,23 @@ class Alignment implements ElementStyleEnum {
     return left;
   }
 
+  /// Returns the calculated x position from [sourceRect].
+  ///
+  /// If [contentRect] is provided, it is considered to be the size of the
+  /// content being aligned *if* it were visible.
+  num calcRight(Rectangle sourceRect, [Rectangle contentRect]) {
+    if (requiresContentSizeToPosition && contentRect == null) {
+      throw ArgumentError.notNull('contentRect');
+    }
+    var right = sourceRect.right;
+    if (this == Center) {
+      right += sourceRect.width / 2 - contentRect.width / 2;
+    } else if (this == End) {
+      right += sourceRect.width - contentRect.width;
+    }
+    return right;
+  }
+
   /// Returns the calculated y position from [sourceRect].
   ///
   /// If [contentRect] is provided, it is considered to be the size of the
