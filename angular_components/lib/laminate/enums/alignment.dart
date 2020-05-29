@@ -103,7 +103,7 @@ class Alignment implements ElementStyleEnum {
     var right = sourceRect.right;
     if (this == Center) {
       right += sourceRect.width / 2 - contentRect.width / 2;
-    } else if (this == End) {
+    } else if (this == Start) {
       right += sourceRect.width - contentRect.width;
     }
     return right;

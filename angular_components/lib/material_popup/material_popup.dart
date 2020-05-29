@@ -783,9 +783,9 @@ class MaterialPopupComponent extends Object
       position = RelativePosition(
           originX: state.source.alignOriginX,
           originY: state.source.alignOriginY);
-      if (isRtl) {
-        position = position.flipRelativePosition();
-      }
+    }
+    if (isRtl) {
+      position = position.flipRelativePosition();
     }
     // Find the size of the content, and move the overlay as an offset based
     // on the calculated position.
