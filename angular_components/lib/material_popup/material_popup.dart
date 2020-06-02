@@ -715,11 +715,9 @@ class MaterialPopupComponent extends Object
     // containerRect is (0, -500) 1024x768.
     //
     // Hopefully this'll make things easier to understand.
-    var containerOffset;
+    var containerOffset = containerRect.topLeft;
     if(state.source.isRtl){
-      containerOffset = 0;
-    }else {
-      containerOffset = containerRect.topLeft;
+      containerOffset = Point(0,containerOffset.y);
     }
 
     // Try each position, and use the one which overlaps most with the viewport.
