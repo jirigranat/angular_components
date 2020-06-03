@@ -668,14 +668,7 @@ class MaterialPopupComponent extends Object
       popupRect =
           _shiftRectangle(popupRect, left: scrollShiftX, top: scrollShiftY);
       var viewportShift = _shiftRectangleToFitWithin(popupRect, _viewportRect);
-
-      window.console.info("_repositionOffsetX: $_repositionOffsetX, viewportShift.left: ${viewportShift.left}");
-
-      if(state.source.isRtl == true)
-        _repositionOffsetX -= viewportShift.left;
-      else
-        _repositionOffsetX += viewportShift.left;
-
+      _repositionOffsetX += viewportShift.left;
       _repositionOffsetY += viewportShift.top;
     }
 
@@ -716,9 +709,6 @@ class MaterialPopupComponent extends Object
     //
     // Hopefully this'll make things easier to understand.
     var containerOffset = containerRect.topLeft;
-    if(state.source.isRtl){
-      containerOffset = Point(0,containerOffset.y);
-    }
 
     // Try each position, and use the one which overlaps most with the viewport.
     var positions = _flatten(_preferredPositions);
